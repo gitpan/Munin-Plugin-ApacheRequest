@@ -1,6 +1,6 @@
 {
     "name": "Munin-Plugin-ApacheRequest",
-    "version": "0.01",
+    "version": "0.02",
     "abstract": "Monitor Apache requests with Munin",
     "author": ["Barbie <barbie@cpan.org>"],
 
@@ -42,7 +42,7 @@
     "provides": {
         "Munin::Plugin::ApacheRequest": {
             "file": "lib/Munin/Plugin/ApacheRequest.pm",
-            "version": "0.01"
+            "version": "0.02"
         }
     },
     "no_index": {

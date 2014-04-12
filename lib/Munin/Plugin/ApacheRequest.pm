@@ -3,7 +3,7 @@ package Munin::Plugin::ApacheRequest;
 use warnings;
 use strict;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 NAME
 
@@ -145,11 +145,11 @@ total.critical 60000000
 CONFIG
 ;
 
-    if (defined(@ARGV) && ($ARGV[0] eq 'config')) {
+    if (@ARGV && ($ARGV[0] eq 'config')) {
         print $config;
 
-        for my $type (keys %{$types}) {
-            for my $key (keys %{$types->{$type}->{'munin_fields'}}) {
+        for my $type (sort keys %{$types}) {
+            for my $key (sort keys %{$types->{$type}->{'munin_fields'}}) {
                 printf "%s.%s %s\n", ($type, $key, $types->{$type}->{'munin_fields'}->{$key});
             }
         }
@@ -157,12 +157,12 @@ CONFIG
     }    
 
     my $config_file;
-    eval { $config_file = `ls -1 $access_log_pattern | tail -n 1`; };
+    eval { $config_file = `ls -1 $access_log_pattern | tail -1`; };
 
     #return  if($@ || !$config_file || !-f $config_file);
 
     chomp $config_file;
-    my @lines = `tail -n $LAST_N_REQUESTS "$config_file"`;
+    my @lines = `tail -$LAST_N_REQUESTS "$config_file"`;
 
     for my $line (@lines) {
         for my $type (keys %{$types}) {
@@ -174,7 +174,7 @@ CONFIG
         }
     } 
 
-    for my $type (keys %{$types}) {
+    for my $type (sort keys %{$types}) {
         my $value = $types->{$type}->{'lines'}
               ? $types->{$type}->{'sum'} / $types->{$type}->{'lines'} : 'U';
         printf "%s.value %s\n", ($type, $value);
