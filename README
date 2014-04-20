@@ -1,5 +1,5 @@
-Munin::Plugin::ApacheRequest
-=================================
+Munin-Plugin-ApacheRequest
+==========================
 
 The module provides the mechanism to trigger Apache request monitoring for a 
 specific VHOST, using Munin.

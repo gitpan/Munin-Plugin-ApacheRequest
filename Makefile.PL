@@ -8,7 +8,7 @@ use ExtUtils::MakeMaker;
 
 WriteMakefile(
     AUTHOR              => 'Barbie <barbie@cpan.org>',
-    NAME                => 'Munin::Plugin::ApacheRequest',
+    NAME                => 'Munin-Plugin-ApacheRequest',
     VERSION_FROM        => 'lib/Munin/Plugin/ApacheRequest.pm',
     ABSTRACT            => 'Monitor Apache requests with Munin',
     NO_META             => 1,

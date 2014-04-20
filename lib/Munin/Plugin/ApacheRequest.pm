@@ -3,7 +3,7 @@ package Munin::Plugin::ApacheRequest;
 use warnings;
 use strict;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 =head1 NAME
 
@@ -157,11 +157,15 @@ CONFIG
     }    
 
     my $config_file;
-    eval { $config_file = `ls -1 $access_log_pattern | tail -1`; };
-
-    #return  if($@ || !$config_file || !-f $config_file);
+    eval { $config_file = `ls -1 $access_log_pattern 2>/dev/null| tail -1`; };
 
     chomp $config_file;
+    if($@ || !$config_file) {
+        for my $type (sort keys %{$types}) {
+            printf "%s.value U\n", $type;
+        }
+    }
+
     my @lines = `tail -$LAST_N_REQUESTS "$config_file"`;
 
     for my $line (@lines) {
@@ -176,7 +180,7 @@ CONFIG
 
     for my $type (sort keys %{$types}) {
         my $value = $types->{$type}->{'lines'}
-              ? $types->{$type}->{'sum'} / $types->{$type}->{'lines'} : 'U';
+              ? sprintf "%.10f", $types->{$type}->{'sum'} / $types->{$type}->{'lines'} : 'U';
         printf "%s.value %s\n", ($type, $value);
     }
 

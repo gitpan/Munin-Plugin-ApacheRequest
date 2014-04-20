@@ -1,5 +1,9 @@
-Revision history for Munin::Plugin::ApacheRequest
-=================================================
+Revision history for Munin-Plugin-ApacheRequest
+===============================================
+
+0.03    2014-04-20
+        - limit results to 10 decimal places.
+        - capture output better, when file doesn't exist.
 
 0.02    2014-04-12
         - switched to using tail option supported by Solaris.

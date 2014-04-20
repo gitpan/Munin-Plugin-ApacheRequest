@@ -19,7 +19,7 @@ like( $trap->stdout, qr/images.value U\ntotal.value U/, 'returns data for missin
 
 $Munin::Plugin::ApacheRequest::ACCESS_LOG_PATTERN = 't/data/access.log';
 trap { Munin::Plugin::ApacheRequest::Run('testsite',1000) };
-like( $trap->stdout, qr/images.value 1893.32116788321\ntotal.value 138923.12987013/, 'returns data for specified apache file');
+like( $trap->stdout, qr/images.value 1893.3211678832\ntotal.value 138923.1298701299/, 'returns data for specified apache file');
 
 @ARGV = ('config');
 
@@ -30,4 +30,4 @@ like( $trap->stdout, qr/images.label Image requests/, 'returns configuration hea
 
 $Munin::Plugin::ApacheRequest::ACCESS_LOG_PATTERN = 't/data/%s-access.log';
 trap { Munin::Plugin::ApacheRequest::Run('testsite',1000) };
-like( $trap->stdout, qr/images.value 2399.22222222222\ntotal.value 75538.3404255319/, 'returns data for VHOST apache file');
+like( $trap->stdout, qr/images.value 2399.2222222222\ntotal.value 75538.3404255319/, 'returns data for VHOST apache file');
